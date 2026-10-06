@@ -1,0 +1,1597 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict fV21gjMJH5NuKTjQ6d2KvCTnXsn3gykVdXLot0kl8eCOwZ38bpsRNEzwHJkQLI9
+
+-- Dumped from database version 18.6
+-- Dumped by pg_dump version 18.6
+
+-- Started on 2026-10-05 15:50:28
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 5189 (class 1262 OID 16388)
+-- Name: facturasDB; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "facturasDB" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'Spanish_Argentina.1252';
+
+
+ALTER DATABASE "facturasDB" OWNER TO postgres;
+
+\unrestrict fV21gjMJH5NuKTjQ6d2KvCTnXsn3gykVdXLot0kl8eCOwZ38bpsRNEzwHJkQLI9
+\connect "facturasDB"
+\restrict fV21gjMJH5NuKTjQ6d2KvCTnXsn3gykVdXLot0kl8eCOwZ38bpsRNEzwHJkQLI9
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 220 (class 1259 OID 16390)
+-- Name: articulos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.articulos (
+    id bigint NOT NULL,
+    fechaalta timestamp(6) without time zone NOT NULL,
+    fechabaja timestamp(6) without time zone,
+    fechamodificacion timestamp(6) without time zone NOT NULL,
+    codigo character varying(255) NOT NULL,
+    denominacion character varying(255) NOT NULL,
+    usuariobaja_id bigint,
+    usuariocarga_id bigint NOT NULL,
+    usuariomodificacion_id bigint NOT NULL,
+    marca_id bigint,
+    rubro_id bigint
+);
+
+
+ALTER TABLE public.articulos OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16389)
+-- Name: articulos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.articulos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.articulos_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5190 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: articulos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.articulos_id_seq OWNED BY public.articulos.id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 16406)
+-- Name: clientes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.clientes (
+    id bigint NOT NULL,
+    fechaalta timestamp(6) without time zone NOT NULL,
+    fechabaja timestamp(6) without time zone,
+    fechamodificacion timestamp(6) without time zone NOT NULL,
+    cuitcuil character varying(255) NOT NULL,
+    denominacion character varying(255) NOT NULL,
+    usuariobaja_id bigint,
+    usuariocarga_id bigint NOT NULL,
+    usuariomodificacion_id bigint NOT NULL,
+    contacto_id bigint NOT NULL,
+    domicilio_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.clientes OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16405)
+-- Name: clientes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.clientes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.clientes_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5191 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: clientes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.clientes_id_seq OWNED BY public.clientes.id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 16424)
+-- Name: condiciones_iva; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.condiciones_iva (
+    id bigint NOT NULL,
+    fechaalta timestamp(6) without time zone NOT NULL,
+    fechabaja timestamp(6) without time zone,
+    fechamodificacion timestamp(6) without time zone NOT NULL,
+    codigoafip integer NOT NULL,
+    denominacion character varying(255) NOT NULL,
+    usuariobaja_id bigint,
+    usuariocarga_id bigint NOT NULL,
+    usuariomodificacion_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.condiciones_iva OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16423)
+-- Name: condiciones_iva_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.condiciones_iva_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.condiciones_iva_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5192 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: condiciones_iva_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.condiciones_iva_id_seq OWNED BY public.condiciones_iva.id;
+
+
+--
+-- TOC entry 226 (class 1259 OID 16438)
+-- Name: contactos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.contactos (
+    id bigint NOT NULL,
+    celular character varying(255),
+    email character varying(255),
+    telefono character varying(255)
+);
+
+
+ALTER TABLE public.contactos OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 16437)
+-- Name: contactos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.contactos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.contactos_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5193 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: contactos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.contactos_id_seq OWNED BY public.contactos.id;
+
+
+--
+-- TOC entry 228 (class 1259 OID 16448)
+-- Name: domicilios; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.domicilios (
+    id bigint NOT NULL,
+    nombrecalle character varying(255),
+    numerocalle character varying(255)
+);
+
+
+ALTER TABLE public.domicilios OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 16447)
+-- Name: domicilios_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.domicilios_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.domicilios_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5194 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: domicilios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.domicilios_id_seq OWNED BY public.domicilios.id;
+
+
+--
+-- TOC entry 230 (class 1259 OID 16458)
+-- Name: facturas_ventas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.facturas_ventas (
+    id bigint NOT NULL,
+    fechaalta timestamp(6) without time zone NOT NULL,
+    fechabaja timestamp(6) without time zone,
+    fechamodificacion timestamp(6) without time zone NOT NULL,
+    cae character varying(255),
+    caefechavencimiento date,
+    estado character varying(255) NOT NULL,
+    fechaanulacion timestamp(6) without time zone,
+    fechaemision date NOT NULL,
+    importecobrado double precision NOT NULL,
+    importesaldo double precision NOT NULL,
+    importetotal double precision NOT NULL,
+    motivorechazo character varying(255),
+    numero bigint,
+    observaciones character varying(255),
+    resultadoafip character varying(255),
+    usuariobaja_id bigint,
+    usuariocarga_id bigint NOT NULL,
+    usuariomodificacion_id bigint NOT NULL,
+    cliente_id bigint NOT NULL,
+    condicion_iva_id bigint NOT NULL,
+    tipo_moneda_id bigint NOT NULL,
+    puntoventa_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.facturas_ventas OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 16481)
+-- Name: facturas_ventas_detalles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.facturas_ventas_detalles (
+    id bigint NOT NULL,
+    cantidad double precision NOT NULL,
+    descripcion character varying(255),
+    importeiva double precision NOT NULL,
+    importeneto double precision NOT NULL,
+    importesubtotal double precision NOT NULL,
+    porcentajebonificacion double precision NOT NULL,
+    preciounitario double precision NOT NULL,
+    factura_id bigint NOT NULL,
+    listaprecioarticulo_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.facturas_ventas_detalles OWNER TO postgres;
+
+--
+-- TOC entry 231 (class 1259 OID 16480)
+-- Name: facturas_ventas_detalles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.facturas_ventas_detalles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.facturas_ventas_detalles_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5195 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: facturas_ventas_detalles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.facturas_ventas_detalles_id_seq OWNED BY public.facturas_ventas_detalles.id;
+
+
+--
+-- TOC entry 229 (class 1259 OID 16457)
+-- Name: facturas_ventas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.facturas_ventas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.facturas_ventas_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5196 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: facturas_ventas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.facturas_ventas_id_seq OWNED BY public.facturas_ventas.id;
+
+
+--
+-- TOC entry 234 (class 1259 OID 16497)
+-- Name: listas_precios; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.listas_precios (
+    id bigint NOT NULL,
+    fechaalta timestamp(6) without time zone NOT NULL,
+    fechabaja timestamp(6) without time zone,
+    fechamodificacion timestamp(6) without time zone NOT NULL,
+    codigo character varying(255) NOT NULL,
+    denominacion character varying(255) NOT NULL,
+    usuariobaja_id bigint,
+    usuariocarga_id bigint NOT NULL,
+    usuariomodificacion_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.listas_precios OWNER TO postgres;
+
+--
+-- TOC entry 236 (class 1259 OID 16513)
+-- Name: listas_precios_articulos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.listas_precios_articulos (
+    id bigint NOT NULL,
+    fechaalta timestamp(6) without time zone NOT NULL,
+    fechabaja timestamp(6) without time zone,
+    fechamodificacion timestamp(6) without time zone NOT NULL,
+    precioventa double precision NOT NULL,
+    usuariobaja_id bigint,
+    usuariocarga_id bigint NOT NULL,
+    usuariomodificacion_id bigint NOT NULL,
+    articulo_id bigint NOT NULL,
+    listaprecio_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.listas_precios_articulos OWNER TO postgres;
+
+--
+-- TOC entry 235 (class 1259 OID 16512)
+-- Name: listas_precios_articulos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.listas_precios_articulos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.listas_precios_articulos_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5197 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: listas_precios_articulos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.listas_precios_articulos_id_seq OWNED BY public.listas_precios_articulos.id;
+
+
+--
+-- TOC entry 233 (class 1259 OID 16496)
+-- Name: listas_precios_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.listas_precios_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.listas_precios_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5198 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: listas_precios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.listas_precios_id_seq OWNED BY public.listas_precios.id;
+
+
+--
+-- TOC entry 238 (class 1259 OID 16528)
+-- Name: marcas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.marcas (
+    id bigint NOT NULL,
+    fechaalta timestamp(6) without time zone NOT NULL,
+    fechabaja timestamp(6) without time zone,
+    fechamodificacion timestamp(6) without time zone NOT NULL,
+    codigo integer NOT NULL,
+    denominacion character varying(255) NOT NULL,
+    usuariobaja_id bigint,
+    usuariocarga_id bigint NOT NULL,
+    usuariomodificacion_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.marcas OWNER TO postgres;
+
+--
+-- TOC entry 237 (class 1259 OID 16527)
+-- Name: marcas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.marcas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.marcas_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5199 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: marcas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.marcas_id_seq OWNED BY public.marcas.id;
+
+
+--
+-- TOC entry 240 (class 1259 OID 16542)
+-- Name: puntos_ventas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.puntos_ventas (
+    id bigint NOT NULL,
+    fechaalta timestamp(6) without time zone NOT NULL,
+    fechabaja timestamp(6) without time zone,
+    fechamodificacion timestamp(6) without time zone NOT NULL,
+    descripcion character varying(255),
+    domiciliocomercial character varying(255),
+    numero integer NOT NULL,
+    tipoemision character varying(255),
+    usuariobaja_id bigint,
+    usuariocarga_id bigint NOT NULL,
+    usuariomodificacion_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.puntos_ventas OWNER TO postgres;
+
+--
+-- TOC entry 239 (class 1259 OID 16541)
+-- Name: puntos_ventas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.puntos_ventas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.puntos_ventas_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5200 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: puntos_ventas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.puntos_ventas_id_seq OWNED BY public.puntos_ventas.id;
+
+
+--
+-- TOC entry 242 (class 1259 OID 16557)
+-- Name: rubros; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.rubros (
+    id bigint NOT NULL,
+    fechaalta timestamp(6) without time zone NOT NULL,
+    fechabaja timestamp(6) without time zone,
+    fechamodificacion timestamp(6) without time zone NOT NULL,
+    codigo integer NOT NULL,
+    denominacion character varying(255) NOT NULL,
+    usuariobaja_id bigint,
+    usuariocarga_id bigint NOT NULL,
+    usuariomodificacion_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.rubros OWNER TO postgres;
+
+--
+-- TOC entry 241 (class 1259 OID 16556)
+-- Name: rubros_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.rubros_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.rubros_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5201 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: rubros_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.rubros_id_seq OWNED BY public.rubros.id;
+
+
+--
+-- TOC entry 244 (class 1259 OID 16571)
+-- Name: tipos_monedas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tipos_monedas (
+    id bigint NOT NULL,
+    fechaalta timestamp(6) without time zone NOT NULL,
+    fechabaja timestamp(6) without time zone,
+    fechamodificacion timestamp(6) without time zone NOT NULL,
+    codigoafip character varying(255) NOT NULL,
+    denominacion character varying(255) NOT NULL,
+    simbolo character varying(255) NOT NULL,
+    usuariobaja_id bigint,
+    usuariocarga_id bigint NOT NULL,
+    usuariomodificacion_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.tipos_monedas OWNER TO postgres;
+
+--
+-- TOC entry 243 (class 1259 OID 16570)
+-- Name: tipos_monedas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tipos_monedas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.tipos_monedas_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5202 (class 0 OID 0)
+-- Dependencies: 243
+-- Name: tipos_monedas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tipos_monedas_id_seq OWNED BY public.tipos_monedas.id;
+
+
+--
+-- TOC entry 246 (class 1259 OID 16588)
+-- Name: usuarios; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.usuarios (
+    id bigint NOT NULL,
+    apellido character varying(255) NOT NULL,
+    clave character varying(255) NOT NULL,
+    nombre character varying(255) NOT NULL,
+    usuario character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.usuarios OWNER TO postgres;
+
+--
+-- TOC entry 245 (class 1259 OID 16587)
+-- Name: usuarios_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.usuarios_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.usuarios_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5203 (class 0 OID 0)
+-- Dependencies: 245
+-- Name: usuarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.usuarios_id_seq OWNED BY public.usuarios.id;
+
+
+--
+-- TOC entry 4921 (class 2604 OID 16393)
+-- Name: articulos id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.articulos ALTER COLUMN id SET DEFAULT nextval('public.articulos_id_seq'::regclass);
+
+
+--
+-- TOC entry 4922 (class 2604 OID 16409)
+-- Name: clientes id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes ALTER COLUMN id SET DEFAULT nextval('public.clientes_id_seq'::regclass);
+
+
+--
+-- TOC entry 4923 (class 2604 OID 16427)
+-- Name: condiciones_iva id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.condiciones_iva ALTER COLUMN id SET DEFAULT nextval('public.condiciones_iva_id_seq'::regclass);
+
+
+--
+-- TOC entry 4924 (class 2604 OID 16441)
+-- Name: contactos id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contactos ALTER COLUMN id SET DEFAULT nextval('public.contactos_id_seq'::regclass);
+
+
+--
+-- TOC entry 4925 (class 2604 OID 16451)
+-- Name: domicilios id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.domicilios ALTER COLUMN id SET DEFAULT nextval('public.domicilios_id_seq'::regclass);
+
+
+--
+-- TOC entry 4926 (class 2604 OID 16461)
+-- Name: facturas_ventas id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas ALTER COLUMN id SET DEFAULT nextval('public.facturas_ventas_id_seq'::regclass);
+
+
+--
+-- TOC entry 4927 (class 2604 OID 16484)
+-- Name: facturas_ventas_detalles id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas_detalles ALTER COLUMN id SET DEFAULT nextval('public.facturas_ventas_detalles_id_seq'::regclass);
+
+
+--
+-- TOC entry 4928 (class 2604 OID 16500)
+-- Name: listas_precios id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listas_precios ALTER COLUMN id SET DEFAULT nextval('public.listas_precios_id_seq'::regclass);
+
+
+--
+-- TOC entry 4929 (class 2604 OID 16516)
+-- Name: listas_precios_articulos id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listas_precios_articulos ALTER COLUMN id SET DEFAULT nextval('public.listas_precios_articulos_id_seq'::regclass);
+
+
+--
+-- TOC entry 4930 (class 2604 OID 16531)
+-- Name: marcas id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.marcas ALTER COLUMN id SET DEFAULT nextval('public.marcas_id_seq'::regclass);
+
+
+--
+-- TOC entry 4931 (class 2604 OID 16545)
+-- Name: puntos_ventas id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.puntos_ventas ALTER COLUMN id SET DEFAULT nextval('public.puntos_ventas_id_seq'::regclass);
+
+
+--
+-- TOC entry 4932 (class 2604 OID 16560)
+-- Name: rubros id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rubros ALTER COLUMN id SET DEFAULT nextval('public.rubros_id_seq'::regclass);
+
+
+--
+-- TOC entry 4933 (class 2604 OID 16574)
+-- Name: tipos_monedas id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipos_monedas ALTER COLUMN id SET DEFAULT nextval('public.tipos_monedas_id_seq'::regclass);
+
+
+--
+-- TOC entry 4934 (class 2604 OID 16591)
+-- Name: usuarios id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuarios ALTER COLUMN id SET DEFAULT nextval('public.usuarios_id_seq'::regclass);
+
+
+--
+-- TOC entry 5157 (class 0 OID 16390)
+-- Dependencies: 220
+-- Data for Name: articulos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.articulos (id, fechaalta, fechabaja, fechamodificacion, codigo, denominacion, usuariobaja_id, usuariocarga_id, usuariomodificacion_id, marca_id, rubro_id) FROM stdin;
+1	2026-10-05 15:37:32.971	\N	2026-10-05 15:37:32.971	A001	Teclado Mecanico	\N	1	1	\N	\N
+\.
+
+
+--
+-- TOC entry 5159 (class 0 OID 16406)
+-- Dependencies: 222
+-- Data for Name: clientes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.clientes (id, fechaalta, fechabaja, fechamodificacion, cuitcuil, denominacion, usuariobaja_id, usuariocarga_id, usuariomodificacion_id, contacto_id, domicilio_id) FROM stdin;
+1	2026-10-05 15:37:32.996	\N	2026-10-05 15:37:32.996	20-12345678-9	Consumidor Final	\N	1	1	1	1
+\.
+
+
+--
+-- TOC entry 5161 (class 0 OID 16424)
+-- Dependencies: 224
+-- Data for Name: condiciones_iva; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.condiciones_iva (id, fechaalta, fechabaja, fechamodificacion, codigoafip, denominacion, usuariobaja_id, usuariocarga_id, usuariomodificacion_id) FROM stdin;
+1	2026-10-05 15:37:32.988	\N	2026-10-05 15:37:32.988	1	Responsable Inscripto	\N	1	1
+\.
+
+
+--
+-- TOC entry 5163 (class 0 OID 16438)
+-- Dependencies: 226
+-- Data for Name: contactos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.contactos (id, celular, email, telefono) FROM stdin;
+1	\N	cliente@test.com	\N
+\.
+
+
+--
+-- TOC entry 5165 (class 0 OID 16448)
+-- Dependencies: 228
+-- Data for Name: domicilios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.domicilios (id, nombrecalle, numerocalle) FROM stdin;
+1	San Martin	123
+\.
+
+
+--
+-- TOC entry 5167 (class 0 OID 16458)
+-- Dependencies: 230
+-- Data for Name: facturas_ventas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.facturas_ventas (id, fechaalta, fechabaja, fechamodificacion, cae, caefechavencimiento, estado, fechaanulacion, fechaemision, importecobrado, importesaldo, importetotal, motivorechazo, numero, observaciones, resultadoafip, usuariobaja_id, usuariocarga_id, usuariomodificacion_id, cliente_id, condicion_iva_id, tipo_moneda_id, puntoventa_id) FROM stdin;
+1	2026-10-05 15:37:33.011	\N	2026-10-05 15:37:33.011	\N	\N	EMITIDA	\N	2026-10-05	0	0	30000	\N	1001	\N	\N	\N	1	1	1	1	1	1
+\.
+
+
+--
+-- TOC entry 5169 (class 0 OID 16481)
+-- Dependencies: 232
+-- Data for Name: facturas_ventas_detalles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.facturas_ventas_detalles (id, cantidad, descripcion, importeiva, importeneto, importesubtotal, porcentajebonificacion, preciounitario, factura_id, listaprecioarticulo_id) FROM stdin;
+1	2	\N	0	0	30000	0	15000	1	1
+\.
+
+
+--
+-- TOC entry 5171 (class 0 OID 16497)
+-- Dependencies: 234
+-- Data for Name: listas_precios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.listas_precios (id, fechaalta, fechabaja, fechamodificacion, codigo, denominacion, usuariobaja_id, usuariocarga_id, usuariomodificacion_id) FROM stdin;
+1	2026-10-05 15:37:32.974	\N	2026-10-05 15:37:32.974	L01	Lista General	\N	1	1
+\.
+
+
+--
+-- TOC entry 5173 (class 0 OID 16513)
+-- Dependencies: 236
+-- Data for Name: listas_precios_articulos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.listas_precios_articulos (id, fechaalta, fechabaja, fechamodificacion, precioventa, usuariobaja_id, usuariocarga_id, usuariomodificacion_id, articulo_id, listaprecio_id) FROM stdin;
+1	2026-10-05 15:37:32.977	\N	2026-10-05 15:37:32.977	15000	\N	1	1	1	1
+\.
+
+
+--
+-- TOC entry 5175 (class 0 OID 16528)
+-- Dependencies: 238
+-- Data for Name: marcas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.marcas (id, fechaalta, fechabaja, fechamodificacion, codigo, denominacion, usuariobaja_id, usuariocarga_id, usuariomodificacion_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5177 (class 0 OID 16542)
+-- Dependencies: 240
+-- Data for Name: puntos_ventas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.puntos_ventas (id, fechaalta, fechabaja, fechamodificacion, descripcion, domiciliocomercial, numero, tipoemision, usuariobaja_id, usuariocarga_id, usuariomodificacion_id) FROM stdin;
+1	2026-10-05 15:37:32.961	\N	2026-10-05 15:37:32.961	\N	\N	1	\N	\N	1	1
+\.
+
+
+--
+-- TOC entry 5179 (class 0 OID 16557)
+-- Dependencies: 242
+-- Data for Name: rubros; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.rubros (id, fechaalta, fechabaja, fechamodificacion, codigo, denominacion, usuariobaja_id, usuariocarga_id, usuariomodificacion_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5181 (class 0 OID 16571)
+-- Dependencies: 244
+-- Data for Name: tipos_monedas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tipos_monedas (id, fechaalta, fechabaja, fechamodificacion, codigoafip, denominacion, simbolo, usuariobaja_id, usuariocarga_id, usuariomodificacion_id) FROM stdin;
+1	2026-10-05 15:37:32.992	\N	2026-10-05 15:37:32.992	ARS	Pesos Argentinos	$	\N	1	1
+\.
+
+
+--
+-- TOC entry 5183 (class 0 OID 16588)
+-- Dependencies: 246
+-- Data for Name: usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.usuarios (id, apellido, clave, nombre, usuario) FROM stdin;
+1	Perez	1234	Juan	admin
+\.
+
+
+--
+-- TOC entry 5204 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: articulos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.articulos_id_seq', 1, true);
+
+
+--
+-- TOC entry 5205 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: clientes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.clientes_id_seq', 1, true);
+
+
+--
+-- TOC entry 5206 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: condiciones_iva_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.condiciones_iva_id_seq', 1, true);
+
+
+--
+-- TOC entry 5207 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: contactos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.contactos_id_seq', 1, true);
+
+
+--
+-- TOC entry 5208 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: domicilios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.domicilios_id_seq', 1, true);
+
+
+--
+-- TOC entry 5209 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: facturas_ventas_detalles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.facturas_ventas_detalles_id_seq', 1, true);
+
+
+--
+-- TOC entry 5210 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: facturas_ventas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.facturas_ventas_id_seq', 1, true);
+
+
+--
+-- TOC entry 5211 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: listas_precios_articulos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.listas_precios_articulos_id_seq', 1, true);
+
+
+--
+-- TOC entry 5212 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: listas_precios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.listas_precios_id_seq', 1, true);
+
+
+--
+-- TOC entry 5213 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: marcas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.marcas_id_seq', 1, false);
+
+
+--
+-- TOC entry 5214 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: puntos_ventas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.puntos_ventas_id_seq', 1, true);
+
+
+--
+-- TOC entry 5215 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: rubros_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.rubros_id_seq', 1, false);
+
+
+--
+-- TOC entry 5216 (class 0 OID 0)
+-- Dependencies: 243
+-- Name: tipos_monedas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tipos_monedas_id_seq', 1, true);
+
+
+--
+-- TOC entry 5217 (class 0 OID 0)
+-- Dependencies: 245
+-- Name: usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.usuarios_id_seq', 1, true);
+
+
+--
+-- TOC entry 4936 (class 2606 OID 16404)
+-- Name: articulos articulos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.articulos
+    ADD CONSTRAINT articulos_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4938 (class 2606 OID 16422)
+-- Name: clientes clientes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT clientes_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4944 (class 2606 OID 16436)
+-- Name: condiciones_iva condiciones_iva_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.condiciones_iva
+    ADD CONSTRAINT condiciones_iva_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4946 (class 2606 OID 16446)
+-- Name: contactos contactos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contactos
+    ADD CONSTRAINT contactos_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4948 (class 2606 OID 16456)
+-- Name: domicilios domicilios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.domicilios
+    ADD CONSTRAINT domicilios_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4952 (class 2606 OID 16495)
+-- Name: facturas_ventas_detalles facturas_ventas_detalles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas_detalles
+    ADD CONSTRAINT facturas_ventas_detalles_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4950 (class 2606 OID 16479)
+-- Name: facturas_ventas facturas_ventas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas
+    ADD CONSTRAINT facturas_ventas_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4956 (class 2606 OID 16526)
+-- Name: listas_precios_articulos listas_precios_articulos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listas_precios_articulos
+    ADD CONSTRAINT listas_precios_articulos_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4954 (class 2606 OID 16511)
+-- Name: listas_precios listas_precios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listas_precios
+    ADD CONSTRAINT listas_precios_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4958 (class 2606 OID 16540)
+-- Name: marcas marcas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.marcas
+    ADD CONSTRAINT marcas_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4960 (class 2606 OID 16555)
+-- Name: puntos_ventas puntos_ventas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.puntos_ventas
+    ADD CONSTRAINT puntos_ventas_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4962 (class 2606 OID 16569)
+-- Name: rubros rubros_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rubros
+    ADD CONSTRAINT rubros_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4964 (class 2606 OID 16586)
+-- Name: tipos_monedas tipos_monedas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipos_monedas
+    ADD CONSTRAINT tipos_monedas_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4940 (class 2606 OID 16604)
+-- Name: clientes uk_6l80t97cejm8knm26n8f32qn9; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT uk_6l80t97cejm8knm26n8f32qn9 UNIQUE (domicilio_id);
+
+
+--
+-- TOC entry 4942 (class 2606 OID 16602)
+-- Name: clientes uk_8mh1ym12ntofge8jhk0944cxj; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT uk_8mh1ym12ntofge8jhk0944cxj UNIQUE (contacto_id);
+
+
+--
+-- TOC entry 4966 (class 2606 OID 16600)
+-- Name: usuarios usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuarios
+    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4997 (class 2606 OID 16765)
+-- Name: marcas fk1p1428mvlhehp2556k17g5yd7; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.marcas
+    ADD CONSTRAINT fk1p1428mvlhehp2556k17g5yd7 FOREIGN KEY (usuariomodificacion_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4977 (class 2606 OID 16655)
+-- Name: condiciones_iva fk1voi9h93qelra9chdwvxfmhin; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.condiciones_iva
+    ADD CONSTRAINT fk1voi9h93qelra9chdwvxfmhin FOREIGN KEY (usuariobaja_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4980 (class 2606 OID 16700)
+-- Name: facturas_ventas fk2aq78hxkepott4y9t427b5pff; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas
+    ADD CONSTRAINT fk2aq78hxkepott4y9t427b5pff FOREIGN KEY (puntoventa_id) REFERENCES public.puntos_ventas(id);
+
+
+--
+-- TOC entry 5000 (class 2606 OID 16775)
+-- Name: puntos_ventas fk3ojxo8r2tllqwkibip44ewgbe; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.puntos_ventas
+    ADD CONSTRAINT fk3ojxo8r2tllqwkibip44ewgbe FOREIGN KEY (usuariocarga_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 5003 (class 2606 OID 16785)
+-- Name: rubros fk44kd3ehsd1thjmel5c7qnw2ye; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rubros
+    ADD CONSTRAINT fk44kd3ehsd1thjmel5c7qnw2ye FOREIGN KEY (usuariobaja_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4987 (class 2606 OID 16705)
+-- Name: facturas_ventas_detalles fk4rcbv1ipt99p612vr931x4y1p; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas_detalles
+    ADD CONSTRAINT fk4rcbv1ipt99p612vr931x4y1p FOREIGN KEY (factura_id) REFERENCES public.facturas_ventas(id);
+
+
+--
+-- TOC entry 4972 (class 2606 OID 16640)
+-- Name: clientes fk5hsi0xhe78vhtsy17elpuvxne; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT fk5hsi0xhe78vhtsy17elpuvxne FOREIGN KEY (usuariomodificacion_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4973 (class 2606 OID 16630)
+-- Name: clientes fk5mjsb9cn1g81hydu2ad0bj9s6; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT fk5mjsb9cn1g81hydu2ad0bj9s6 FOREIGN KEY (usuariobaja_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4981 (class 2606 OID 16690)
+-- Name: facturas_ventas fk5nx82li3tmd4r5i7nuq0773bv; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas
+    ADD CONSTRAINT fk5nx82li3tmd4r5i7nuq0773bv FOREIGN KEY (condicion_iva_id) REFERENCES public.condiciones_iva(id);
+
+
+--
+-- TOC entry 5004 (class 2606 OID 16795)
+-- Name: rubros fk6le4n6jt5ujtctiusm4gaeo04; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rubros
+    ADD CONSTRAINT fk6le4n6jt5ujtctiusm4gaeo04 FOREIGN KEY (usuariomodificacion_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4967 (class 2606 OID 16610)
+-- Name: articulos fk6mll84bkfbyrd9hsfq3ycwi7n; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.articulos
+    ADD CONSTRAINT fk6mll84bkfbyrd9hsfq3ycwi7n FOREIGN KEY (usuariocarga_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4974 (class 2606 OID 16650)
+-- Name: clientes fk8vlteu172qolnu26ys5cfamwj; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT fk8vlteu172qolnu26ys5cfamwj FOREIGN KEY (domicilio_id) REFERENCES public.domicilios(id);
+
+
+--
+-- TOC entry 4982 (class 2606 OID 16670)
+-- Name: facturas_ventas fk9d9yq6c3xxb2y4uir5hplag5i; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas
+    ADD CONSTRAINT fk9d9yq6c3xxb2y4uir5hplag5i FOREIGN KEY (usuariobaja_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4975 (class 2606 OID 16635)
+-- Name: clientes fk9um5toi0bo05mucnn34hi69uf; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT fk9um5toi0bo05mucnn34hi69uf FOREIGN KEY (usuariocarga_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4992 (class 2606 OID 16750)
+-- Name: listas_precios_articulos fka2axsqv3gb0bqivrjxft5lu5o; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listas_precios_articulos
+    ADD CONSTRAINT fka2axsqv3gb0bqivrjxft5lu5o FOREIGN KEY (listaprecio_id) REFERENCES public.listas_precios(id);
+
+
+--
+-- TOC entry 5006 (class 2606 OID 16805)
+-- Name: tipos_monedas fkacojafjho6ex334mafkehfwyx; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipos_monedas
+    ADD CONSTRAINT fkacojafjho6ex334mafkehfwyx FOREIGN KEY (usuariocarga_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4978 (class 2606 OID 16665)
+-- Name: condiciones_iva fkauguvxon63u6g1vpnb8qmj20t; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.condiciones_iva
+    ADD CONSTRAINT fkauguvxon63u6g1vpnb8qmj20t FOREIGN KEY (usuariomodificacion_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4993 (class 2606 OID 16735)
+-- Name: listas_precios_articulos fkbbtunym0wumpyvd4vc6gq9ig3; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listas_precios_articulos
+    ADD CONSTRAINT fkbbtunym0wumpyvd4vc6gq9ig3 FOREIGN KEY (usuariocarga_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4983 (class 2606 OID 16685)
+-- Name: facturas_ventas fkbwmigbjdu7p8oh3dcu6lxom2m; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas
+    ADD CONSTRAINT fkbwmigbjdu7p8oh3dcu6lxom2m FOREIGN KEY (cliente_id) REFERENCES public.clientes(id);
+
+
+--
+-- TOC entry 4968 (class 2606 OID 16605)
+-- Name: articulos fkc9o2dxbwkbigthvhged4ajl4q; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.articulos
+    ADD CONSTRAINT fkc9o2dxbwkbigthvhged4ajl4q FOREIGN KEY (usuariobaja_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 5007 (class 2606 OID 16800)
+-- Name: tipos_monedas fkcwjijl9t0gomco3cltg53il3o; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipos_monedas
+    ADD CONSTRAINT fkcwjijl9t0gomco3cltg53il3o FOREIGN KEY (usuariobaja_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 5005 (class 2606 OID 16790)
+-- Name: rubros fkd87tt3lhn3nk7ovj18cn5dlue; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rubros
+    ADD CONSTRAINT fkd87tt3lhn3nk7ovj18cn5dlue FOREIGN KEY (usuariocarga_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4969 (class 2606 OID 16615)
+-- Name: articulos fke23egyrdareemopqehia14sj6; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.articulos
+    ADD CONSTRAINT fke23egyrdareemopqehia14sj6 FOREIGN KEY (usuariomodificacion_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4984 (class 2606 OID 16680)
+-- Name: facturas_ventas fkeanao1h14v0wlxiucfd5rte75; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas
+    ADD CONSTRAINT fkeanao1h14v0wlxiucfd5rte75 FOREIGN KEY (usuariomodificacion_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 5001 (class 2606 OID 16770)
+-- Name: puntos_ventas fkeu3j0ldj8lwdpjawhqhebfsxl; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.puntos_ventas
+    ADD CONSTRAINT fkeu3j0ldj8lwdpjawhqhebfsxl FOREIGN KEY (usuariobaja_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4998 (class 2606 OID 16760)
+-- Name: marcas fkfno662b84dh395tmjyeex813k; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.marcas
+    ADD CONSTRAINT fkfno662b84dh395tmjyeex813k FOREIGN KEY (usuariocarga_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4979 (class 2606 OID 16660)
+-- Name: condiciones_iva fki1p7a1s8wdcsfioiqfhsxw25y; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.condiciones_iva
+    ADD CONSTRAINT fki1p7a1s8wdcsfioiqfhsxw25y FOREIGN KEY (usuariocarga_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4985 (class 2606 OID 16695)
+-- Name: facturas_ventas fkisd4lao0oawlk22qwieu1fhxv; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas
+    ADD CONSTRAINT fkisd4lao0oawlk22qwieu1fhxv FOREIGN KEY (tipo_moneda_id) REFERENCES public.tipos_monedas(id);
+
+
+--
+-- TOC entry 4989 (class 2606 OID 16725)
+-- Name: listas_precios fkiwctjtjimdemaobswnv10svsp; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listas_precios
+    ADD CONSTRAINT fkiwctjtjimdemaobswnv10svsp FOREIGN KEY (usuariomodificacion_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4994 (class 2606 OID 16740)
+-- Name: listas_precios_articulos fkj8l2p676rqx37rne9mawid7k5; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listas_precios_articulos
+    ADD CONSTRAINT fkj8l2p676rqx37rne9mawid7k5 FOREIGN KEY (usuariomodificacion_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4999 (class 2606 OID 16755)
+-- Name: marcas fkk0c6ckogubvxcp6vevgcs9hh0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.marcas
+    ADD CONSTRAINT fkk0c6ckogubvxcp6vevgcs9hh0 FOREIGN KEY (usuariobaja_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4970 (class 2606 OID 16620)
+-- Name: articulos fkm5ssxecfd41a4n8rovaftbkyp; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.articulos
+    ADD CONSTRAINT fkm5ssxecfd41a4n8rovaftbkyp FOREIGN KEY (marca_id) REFERENCES public.marcas(id);
+
+
+--
+-- TOC entry 4971 (class 2606 OID 16625)
+-- Name: articulos fknn08iuehqd0rgq5vqf01vfvjb; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.articulos
+    ADD CONSTRAINT fknn08iuehqd0rgq5vqf01vfvjb FOREIGN KEY (rubro_id) REFERENCES public.rubros(id);
+
+
+--
+-- TOC entry 4976 (class 2606 OID 16645)
+-- Name: clientes fknolcraj2p3av73hlfl0rh5ex6; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT fknolcraj2p3av73hlfl0rh5ex6 FOREIGN KEY (contacto_id) REFERENCES public.contactos(id);
+
+
+--
+-- TOC entry 4990 (class 2606 OID 16715)
+-- Name: listas_precios fkonmux3n5xoy1wmho3h8x6kjr; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listas_precios
+    ADD CONSTRAINT fkonmux3n5xoy1wmho3h8x6kjr FOREIGN KEY (usuariobaja_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4988 (class 2606 OID 16710)
+-- Name: facturas_ventas_detalles fkp1852jmnrcnwrc5vhktqsovfl; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas_detalles
+    ADD CONSTRAINT fkp1852jmnrcnwrc5vhktqsovfl FOREIGN KEY (listaprecioarticulo_id) REFERENCES public.listas_precios_articulos(id);
+
+
+--
+-- TOC entry 4991 (class 2606 OID 16720)
+-- Name: listas_precios fkp7yryahnl4asah24hjleq2p47; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listas_precios
+    ADD CONSTRAINT fkp7yryahnl4asah24hjleq2p47 FOREIGN KEY (usuariocarga_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 5008 (class 2606 OID 16810)
+-- Name: tipos_monedas fkpjjm4lnhxp33m8entuaxbchh5; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipos_monedas
+    ADD CONSTRAINT fkpjjm4lnhxp33m8entuaxbchh5 FOREIGN KEY (usuariomodificacion_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4995 (class 2606 OID 16745)
+-- Name: listas_precios_articulos fkq6bcys2wscxku4n85tbpbptcn; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listas_precios_articulos
+    ADD CONSTRAINT fkq6bcys2wscxku4n85tbpbptcn FOREIGN KEY (articulo_id) REFERENCES public.articulos(id);
+
+
+--
+-- TOC entry 5002 (class 2606 OID 16780)
+-- Name: puntos_ventas fkqhshmbr84ladeudum4eagvcn4; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.puntos_ventas
+    ADD CONSTRAINT fkqhshmbr84ladeudum4eagvcn4 FOREIGN KEY (usuariomodificacion_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4986 (class 2606 OID 16675)
+-- Name: facturas_ventas fkso4ednbynum9ilp79wjjs3hmp; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.facturas_ventas
+    ADD CONSTRAINT fkso4ednbynum9ilp79wjjs3hmp FOREIGN KEY (usuariocarga_id) REFERENCES public.usuarios(id);
+
+
+--
+-- TOC entry 4996 (class 2606 OID 16730)
+-- Name: listas_precios_articulos fkt8wa35vqg0vxnvjrqsfaj8dye; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listas_precios_articulos
+    ADD CONSTRAINT fkt8wa35vqg0vxnvjrqsfaj8dye FOREIGN KEY (usuariobaja_id) REFERENCES public.usuarios(id);
+
+
+-- Completed on 2026-10-05 15:50:29
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict fV21gjMJH5NuKTjQ6d2KvCTnXsn3gykVdXLot0kl8eCOwZ38bpsRNEzwHJkQLI9
+
